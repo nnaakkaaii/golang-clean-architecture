@@ -1,0 +1,6 @@
+db_user: postgres
+db_pass: postgres
+db_host: localhost
+db_port: 5432
+db_name: go_users
+port: 8000

@@ -1,0 +1,9 @@
+go fmt ./main.go
+go fmt ./app/adapters/controller/*.go
+go fmt ./app/adapters/presenter/*.go
+go fmt ./app/adapters/repository/*.go
+go fmt ./app/domains/entity/*.go
+go fmt ./app/interfaces/database/*.go
+go fmt ./app/interfaces/server/*.go
+go fmt ./app/interfaces/view/*.go
+go fmt ./app/usecases/interactor/*.go
