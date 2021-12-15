@@ -1,7 +1,7 @@
 package server
 
 import (
-	"clean_architecture/app/adapters/controller"
+	"clean_architecture/app/controller"
 	"fmt"
 	"github.com/labstack/echo"
 	"log"
@@ -10,10 +10,10 @@ import (
 
 type UserServer struct {
 	e          *echo.Echo
-	controller *controller.UserController
+	controller *controller.UserControllerInterface
 }
 
-func NewUserServer(controller *controller.UserController) *UserServer {
+func NewUserServer(controller *controller.UserControllerInterface) *UserServer {
 	server := &UserServer{
 		e:          echo.New(),
 		controller: controller,
@@ -46,32 +46,32 @@ type route struct {
 	handler echo.HandlerFunc
 }
 
-func handleRoutes(controller *controller.UserController) []route {
+func handleRoutes(controller *controller.UserControllerInterface) []route {
 	return []route{
 		{
 			method:  http.MethodGet,
 			path:    "/users",
-			handler: controller.ListUsers,
+			handler: (*controller).ListUsers,
 		},
 		{
 			method:  http.MethodPost,
 			path:    "/users",
-			handler: controller.CreateUser,
+			handler: (*controller).CreateUser,
 		},
 		{
 			method:  http.MethodGet,
 			path:    "/users/:id",
-			handler: controller.RetrieveUser,
+			handler: (*controller).RetrieveUser,
 		},
 		{
 			method:  http.MethodPut,
 			path:    "/users/:id",
-			handler: controller.UpdateUser,
+			handler: (*controller).UpdateUser,
 		},
 		{
 			method:  http.MethodDelete,
 			path:    "/users/:id",
-			handler: controller.DeleteUser,
+			handler: (*controller).DeleteUser,
 		},
 	}
 }

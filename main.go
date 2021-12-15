@@ -1,13 +1,13 @@
 package main
 
 import (
-	"clean_architecture/app/adapters/controller"
-	"clean_architecture/app/adapters/presenter"
-	"clean_architecture/app/adapters/repository"
-	"clean_architecture/app/interfaces/database"
-	"clean_architecture/app/interfaces/server"
-	"clean_architecture/app/interfaces/view"
-	"clean_architecture/app/usecases/interactor"
+	"clean_architecture/app/controller"
+	"clean_architecture/app/database"
+	"clean_architecture/app/interactor"
+	"clean_architecture/app/presenter"
+	"clean_architecture/app/repository"
+	"clean_architecture/app/server"
+	"clean_architecture/app/view"
 	"gopkg.in/yaml.v3"
 	"os"
 )
@@ -40,20 +40,20 @@ func NewConf(path string) (conf *Conf) {
 func main() {
 	conf := NewConf(configPath)
 
-	// interfaces/database
-	d := repository.UserDatabase(database.NewUserDatabase(conf.DBUser, conf.DBPass, conf.DBHost, conf.DBPort, conf.DBName))
-	// interfaces/view
-	v := presenter.UserView(view.NewView())
-	// adapters/repository
-	r := interactor.UserRepository(repository.NewUserRepository(&d))
-	// adapters/presenter
-	p := interactor.UserPresenter(presenter.NewUserPresenter(&v))
-	// usecases/interactor
-	i := interactor.NewUserInteractor(&r, &p)
-	// adapters/controller
-	c := controller.NewUserController(i)
+	// database
+	d := repository.UserDatabaseInterface(database.NewUserDatabase(conf.DBUser, conf.DBPass, conf.DBHost, conf.DBPort, conf.DBName))
+	// view
+	v := presenter.UserViewInterface(view.NewUserView())
+	// repository
+	r := interactor.UserRepositoryInterface(repository.NewUserRepository(&d))
+	// presenter
+	p := controller.UserPresenterInterface(presenter.NewUserPresenter(&v))
+	// interactor
+	i := interactor.UserInteractorInterface(interactor.NewUserInteractor(&r))
+	// controller
+	c := controller.UserControllerInterface(controller.NewUserController(&i, &p))
 	// interfaces/server
-	s := server.NewUserServer(c)
+	s := server.NewUserServer(&c)
 
 	s.Start(conf.Port)
 }
