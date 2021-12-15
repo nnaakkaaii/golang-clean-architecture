@@ -40,3 +40,6 @@
 ├── go.sum
 └── main.go
 ```
+
+
+![go_clean_architecture](./docs/architecture.png)

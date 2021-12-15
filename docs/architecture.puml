@@ -1,0 +1,100 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+title go_clean_architecture
+
+package "interface" {
+    package "view" {
+        class "view" as view {
+        }
+    }
+    package "server" {
+        class "server" as server {
+        }
+    }
+    package "database" {
+        class "database" as database {
+        }
+    }
+}
+
+package "adapter" {
+   package "presenter" {
+       class "presenter" as presenter {
+       }
+       class "view_interface" as view_interface {
+       }
+       class "view_model" as view_model {
+       }
+   }
+   package "controller" {
+       class "controller" as controller {
+       }
+       class "controller_interface" as controller_interface {
+       }
+       class "presenter_interface" as presenter_interface {
+       }
+   }
+   package "repository" {
+       class "repository" as repository {
+       }
+       class "database_interface" as database_interface {
+       }
+   }
+}
+
+package "usecase" {
+    package "interactor" {
+        class "request" as request {
+        }
+        class "interactor_interface" as interactor_interface {
+        }
+        class "interactor" as interactor {
+        }
+        class "response" as response {
+        }
+        class "repository_interface" as repository_interface {
+        }
+    }
+}
+
+package "domain" {
+    package "entity" {
+        class "entity" as entity {
+        }
+    }
+}
+
+view --|> view_interface
+view --> view_model
+presenter --|> presenter_interface
+presenter --> view_interface
+presenter --> response
+view_interface --> view_model
+view_model --> response
+server --> controller_interface
+controller --> interactor_interface
+controller --> presenter_interface
+controller --> request
+controller --|> controller_interface
+presenter_interface --> response
+interactor --> repository_interface
+interactor --|> interactor_interface
+interactor --> response
+interactor --> request
+interactor_interface --> response
+interactor_interface --> request
+repository_interface --> entity
+repository --> database_interface
+repository --|> repository_interface
+repository --> entity
+database_interface --> entity
+database --|> database_interface
+database --> entity
+
+@enduml
