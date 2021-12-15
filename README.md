@@ -4,41 +4,43 @@
 .
 ├── README.md
 ├── app
-│   ├── adapters
-│   │   ├── controller
-│   │   │   ├── controller.go
-│   │   │   ├── ds_controller.go
-│   │   │   └── errors.go
-│   │   ├── presenter
-│   │   │   ├── ds_view.go
-│   │   │   ├── i_view.go
-│   │   │   └── presenter.go
-│   │   └── repository
-│   │       ├── ds_database.go
-│   │       ├── i_database.go
-│   │       └── repository.go
-│   ├── domains
-│   │   └── entity
-│   │       └── entity.go
-│   ├── interfaces
-│   │   ├── database
-│   │   │   └── database.go
-│   │   ├── server
-│   │   │   └── server.go
-│   │   └── view
-│   │       └── view.go
-│   └── usecases
-│       └── interactor
-│           ├── ds_presenter.go
-│           ├── i_presenter.go
-│           ├── i_repository.go
-│           └── interactor.go
+│   ├── controller
+│   │   ├── controller.go
+│   │   ├── controller_interface.go
+│   │   ├── errors.go
+│   │   └── presenter_interface.go
+│   ├── database
+│   │   └── database.go
+│   ├── interactor
+│   │   ├── entity.go
+│   │   ├── interactor.go
+│   │   ├── interactor_interface.go
+│   │   ├── repository_interface.go
+│   │   ├── request.go
+│   │   └── response.go
+│   ├── presenter
+│   │   ├── presenter.go
+│   │   ├── view_interface.go
+│   │   └── view_model.go
+│   ├── repository
+│   │   ├── database_interface.go
+│   │   └── repository.go
+│   ├── server
+│   │   └── server.go
+│   └── view
+│       └── view.go
 ├── config
 │   └── config.yaml
+├── docs
+│   ├── architecture.png
+│   └── architecture.puml
 ├── fmt.sh
 ├── go.mod
 ├── go.sum
 └── main.go
+
+10 directories, 26 files
+
 ```
 
 
